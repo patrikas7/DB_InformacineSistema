@@ -1,0 +1,174 @@
+﻿@model _2_Laboras.ViewModels.KrepsinioLygaEditViewModel
+
+@{
+    ViewBag.Title = "Krepšinio lygos redagavimas";
+    var psl_k_count = 0;
+}
+
+<h2>Krepšinio lygos redagavimas</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <h4>Krepšinio lygosredagavimas</h4>
+    <hr />
+    <fieldset>
+        <legend>Krepšinio lygos informacija</legend>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.LygosPavadinimas, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LygosPavadinimas, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LygosPavadinimas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrizinisFondas, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrizinisFondas, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrizinisFondas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KomanduSkaicius, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KomanduSkaicius, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.KomanduSkaicius, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TurnyroTrukme, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TurnyroTrukme, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TurnyroTrukme, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Formatas, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Formatas, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Formatas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fk_remejas, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.fk_remejas, Model.RemejaiList, "--------------", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.fk_remejas, "", new { @class = "text-danger" })
+            </div>
+    </fieldset>
+
+    @{if (Model.PrezidentoKadencijos != null)
+        {
+            psl_k_count = Model.PrezidentoKadencijos.Count;
+        }
+        else
+        {
+            psl_k_count = 0;
+        }
+    }
+    <fieldset>
+        <legend>Prezidentų kadencijos informacija</legend>
+        <table class="table-responsive" id="prezidentai_tbl">
+            <thead>
+                <tr>
+                    <th>Prezidentas </th>
+                    <th>Kadencijos pradžia </th>
+                    <th>Kadencijos pabaigas</th>
+                </tr>
+            </thead>
+                @for (int i = 0; i < Model.PrezidentoKadencijos.Count; i++)
+        {
+                    <tr>
+                        <td style="padding-top:10px">
+                            <span class="text-hide sel_element" style="display: none;">@Model.PrezidentoKadencijos[i].fk_prezidentas</span>
+                            @Html.DropDownListFor(model => model.PrezidentoKadencijos[i].fk_prezidentas, Model.PrezidentaiList, "--------------", new { @class = "form-control" })
+                        </td>
+                        <td style="padding-left:10px; padding-top:10px">
+                            @Html.EditorFor(model => model.PrezidentoKadencijos[i].KadencijosPradzia, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                        </td>
+                        <td style="padding-left:10px; padding-top:10px">
+                            @Html.EditorFor(model => model.PrezidentoKadencijos[i].KadencijosPabaiga, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                        </td>
+                        <td style="padding-left:10px; padding-top:10px"><button type="button" class="btn btn-danger" onclick="salinti(this)">Šalinti</button></td>
+                    </tr>
+            }
+        
+
+
+        </table>
+        <input type="hidden" disabled value="@psl_k_count" id="hCount" />
+        <button id="prd" type="button" class="btn btn-info" onclick="prideti($('#hCount').val());" style="margin-top: 10px">Pridėti</button>
+        @if (ViewBag.klaida != null)
+        {
+            <h5 style="color:red">@ViewBag.klaida</h5>
+        }
+        else
+        {
+            <input type="submit" value="Išsaugoti" class="btn btn-success" style="margin-top: 10px" />
+        }
+       
+    </fieldset>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Atgal į sąrašą »", "Index", "Krepsinio_lyga", new { @class = "btn btn-default" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function prideti(sk) {
+
+            var tmp_row = `"<tr>
+                            <td style="padding-top:10px">
+                           <span class="text-hide sel_element"></span>
+                             @Html.DropDownList("PrezidentoKadencijos[0].fk_prezidentas", Model.PrezidentaiList, "--------------", new { @class = "form-control" })
+                            </td>
+                         <td style="padding-left:10px; padding-top:10px"">
+                            <input class="form-control text-box single-line valid date-picker" data-val="true" data-val-date="The field galiojaIki must be a date."  data-val-required="The galiojaIki field is required." id="PrezidentoKadencijos_0__KadencijosPradzia" name="PrezidentoKadencijos[0].KadencijosPradzia" type="datetime" value="">
+                         </td>
+                         <td style="padding-left:10px; padding-top:10px">
+                             <input class="form-control text-box single-line valid date-picker" data-val="true" data-val-date="The field galiojaIki must be a date."  data-val-required="The galiojaIki field is required." id="PrezidentoKadencijos_0__KadencijosPabaiga" name="PrezidentoKadencijos[0].KadencijosPabaiga" type="datetime" value="">
+                         </td>
+                            <td style="padding-left:10px; padding-top:10px"><button type="button" class="btn btn-danger" onclick="salinti(this)">Šalinti</button></td>
+                        </tr>"`;
+
+         var new_tmp_row = tmp_row.replace(/\[(0)\]/g, "[" + sk + "]");
+        new_tmp_row = new_tmp_row.replace(/\_(0)\_/g, "_" + sk + "_");
+            $("#prezidentai_tbl tr:last").after(new_tmp_row);
+
+            $('#hCount').val(Number($('#hCount').val()) + 1);
+            $(".date-picker").datepicker({ dateFormat: 'yy-mm-dd' });
+
+        };
+
+        function salinti(btn) {
+            $(btn).closest('tr').remove();
+
+            var cnt = 0;
+
+            $("#prezidentai_tbl tbody tr").each(function () {
+                var tmp_row = "<tr>" + $(this).html() + "</tr>";
+                var new_tmp_row = tmp_row.replace(/\[(.)\]/g, "[" + cnt + "]");
+                new_tmp_row = new_tmp_row.replace(/\_(.)\_/g, "_" + cnt + "_");
+                $(this).replaceWith(new_tmp_row);
+                cnt = cnt + 1;
+            });
+
+            $('#hCount').val(cnt);
+           $(".sel_element").each(function () {
+            $(this).closest("td").find("select").val($(this).text());
+        });
+        }
+    </script>
+
+}

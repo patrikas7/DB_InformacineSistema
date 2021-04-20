@@ -1,0 +1,173 @@
+﻿@model _2_Laboras.ViewModels.KrepsinioKomandaEditViewModel
+
+@{ var psl_k_count = 0; }
+@{
+    ViewBag.Title = "Komandos redagavimas";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Komandos redagavimas</h4>
+        <hr />
+        <fieldset>
+            <legend>Komandos informacija</legend>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KrepsinioKomanda.Pavadinimas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KrepsinioKomanda.Pavadinimas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KrepsinioKomanda.Pavadinimas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KrepsinioKomanda.Miestas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KrepsinioKomanda.Miestas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KrepsinioKomanda.Miestas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KrepsinioKomanda.Treneris, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KrepsinioKomanda.Treneris, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KrepsinioKomanda.Treneris, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KrepsinioKomanda.Biudzetas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KrepsinioKomanda.Biudzetas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KrepsinioKomanda.Biudzetas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KrepsinioKomanda.Arena, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KrepsinioKomanda.Arena, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KrepsinioKomanda.Arena, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KrepsinioKomanda.Lygu_licenzija, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KrepsinioKomanda.Lygu_licenzija, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KrepsinioKomanda.Lygu_licenzija, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KrepsinioKomanda.Laimejimai, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KrepsinioKomanda.Laimejimai, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KrepsinioKomanda.Laimejimai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @{if (Model.Darbuotojai != null)
+                {
+                    psl_k_count = Model.Darbuotojai.Count;
+                }
+                else
+                {
+                    psl_k_count = 0;
+                }
+            }
+        </fieldset>
+
+        <fieldset>
+            <legend>Darbuotojų informacija</legend>
+            <table class="table-responsive" id="darbuotojai_tbl">
+                <thead>
+                    <tr>
+                        <th>Vardas</th>
+                        <th>Pavardė</th>
+                        <th>Einamos pareigos</th>
+                    </tr>
+                </thead>
+                @if (Model.Darbuotojai != null)
+                {
+                    for (int i = 0; i < Model.Darbuotojai.Count; i++)
+                    {
+                        <tr>
+                            <td style="padding-top:10px">
+                                @Html.EditorFor(model => model.Darbuotojai[i].Vardas, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(Model => Model.Darbuotojai[i].Vardas, "", new { @class = "text-danger" })
+                            </td>
+                            <td style="padding-left:10px; padding-top:10px">
+                                @Html.EditorFor(model => model.Darbuotojai[i].Pavarde, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                                @Html.ValidationMessageFor(Model => Model.Darbuotojai[i].Pavarde, "", new { @class = "text-danger" })
+                            </td>
+                            <td style="padding-left:10px; padding-top:10px">
+                                @Html.EditorFor(model => model.Darbuotojai[i].EinamosPareigos, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                                @Html.ValidationMessageFor(Model => Model.Darbuotojai[i].EinamosPareigos, "", new { @class = "text-danger" })
+                            </td>
+                            <td style="padding-left:10px; padding-top:10px"><button type="button" class="btn btn-danger" onclick="salinti(this)">Šalinti</button></td>
+                        </tr>
+                    }
+                }
+            </table>
+            <input type="hidden" disabled value="@psl_k_count" id="hCount" />
+            <button id="prd" type="button" class="btn btn-info" onclick="prideti($('#hCount').val());" style="margin-top: 10px">Pridėti</button>
+                <input type="submit" value="Išsaugoti" class="btn btn-success" style="margin-top: 10px" />
+            
+        </fieldset>
+
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Atgal į sąrašą »", "Index", "Krepsinio_komanda", new { @class = "btn btn-default" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function prideti(sk) {
+
+            var tmp_row = `"<tr>
+                             <td style="padding-top:10px">
+                                <input class="form-control text-box single-line" data-val-required="Vardo laukas yra būtinas" id="darbuotojas`+ sk + `__Vardas" name="Darbuotojai[` + sk + `].Vardas" type="text" value="">
+                            </td>
+                             <td style="padding-left:10px; padding-top:10px">
+                                <input class="form-control text-box single-line" data-val-required="Pavardės laukas yra būtinas" id="darbuotojas`+ sk + `__Pavarde" name="Darbuotojai[` + sk + `].Pavarde" type="text" value="">
+                             </td>
+                             <td style="padding-left:10px; padding-top:10px">
+                                <input class="form-control text-box single-line" data-val-required="Einamų pareigų laukas yra būtinas" id="darbuotojas`+ sk + `__EinamosPareigos" name="Darbuotojai[` + sk + `].EinamosPareigos" type="text" value="">
+                             </td>
+                                <td style="padding-left:10px; padding-top:10px"><button type="button" class="btn btn-danger" onclick="salinti(this)">Šalinti</button></td>
+                            </tr>"`;
+
+            $("#darbuotojai_tbl tr:last").after(tmp_row);
+
+            $('#hCount').val(Number($('#hCount').val()) + 1);
+
+        };
+
+        function salinti(btn) {
+            $(btn).closest('tr').remove();
+
+
+            var cnt = 0;
+
+            $("#darbuotojai_tbl tbody tr").each(function () {
+                var tmp_row = "<tr>" + $(this).html() + "</tr>";
+                var new_tmp_row = tmp_row.replace(/\[(.)\]/g, "[" + cnt + "]");
+                new_tmp_row = new_tmp_row.replace(/\_(.)\_/g, "_" + cnt + "_");
+                $(this).replaceWith(new_tmp_row);
+                cnt = cnt + 1;
+            });
+
+            $('#hCount').val(cnt);
+
+        }
+    </script>
+}
+

@@ -1,0 +1,96 @@
+﻿@model _2_Laboras.ViewModels.KrepsinioKomandaEditViewModel
+
+@{
+    ViewBag.Title = "Komandos šalinimas";
+}
+
+<h2>Komandos šalinimas</h2>
+
+<h3>Ar tikrai norite pašalinti šią komandą?</h3>
+<div>
+    <h4>Krepšinio komanda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KrepsinioKomanda.Pavadinimas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KrepsinioKomanda.Pavadinimas)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KrepsinioKomanda.Miestas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KrepsinioKomanda.Miestas)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KrepsinioKomanda.Treneris)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KrepsinioKomanda.Treneris)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KrepsinioKomanda.Biudzetas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KrepsinioKomanda.Biudzetas)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KrepsinioKomanda.Arena)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KrepsinioKomanda.Arena)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KrepsinioKomanda.Lygu_licenzija)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KrepsinioKomanda.Lygu_licenzija)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KrepsinioKomanda.Laimejimai)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KrepsinioKomanda.Laimejimai)
+        </dd>
+
+    </dl>
+</div>
+    <div>
+
+          <h4>Darbuotojai</h4>
+        <hr />
+        <table class="table table-striped">
+            <tr style="background-color:lightblue">
+                <th>
+                    @Html.DisplayNameFor(model => model.Darbuotojai[0].Vardas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Darbuotojai[0].Pavarde)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Darbuotojai[0].EinamosPareigos)
+                </th>
+            </tr>
+
+              @for (int i = 0; i < Model.Darbuotojai.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Darbuotojai[i].Vardas</td>
+                    <td>@Model.Darbuotojai[i].Pavarde</td>
+                    <td>@Model.Darbuotojai[i].EinamosPareigos</td>
+                </tr>
+            }
+
+        </table> 
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <h2>@ViewBag.klaida</h2>
+                <input type="submit" value="Šalinti" class="btn btn-danger" />
+                @Html.ActionLink("Atgal į sąrašą", "Index", "Krepsinio_komanda", new { @class = "btn btn-default" })
+            </div>
+        }
+    </div>

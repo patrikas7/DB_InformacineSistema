@@ -1,0 +1,65 @@
+﻿@model IEnumerable<_2_Laboras.Models.Krepsinio_lyga>
+
+@{
+    ViewBag.Title = "Krepšinio lygos";
+}
+
+<h2>Krepšinio lygos</h2>
+
+<p>
+    @Html.ActionLink("Nauja krepšinio lyga", "Create", "Krepsinio_lyga", new { @class="btn btn-success"})
+</p>
+<table class="table">
+    <thead>
+        <tr style="background-color: lightblue; ">
+            <th>
+                @Html.DisplayNameFor(model => model.Lygos_pavadinimas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prizinis_fondas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Komandu_skaicius)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnyro_trukme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Formatas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remejas)
+            </th>
+            <th style="width: 18%"></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lygos_pavadinimas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prizinis_fondas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Komandu_skaicius)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Turnyro_trukme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Formatas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remejas)
+            </td>
+            <td>
+                @Html.ActionLink("Redaguoti", "Edit", new { id = item.id }, new { @class = "btn btn-primary action" }) 
+                @Html.ActionLink("Šalinti", "Delete", new { id = item.id }, new { @class = "btn btn-danger action" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,59 @@
+﻿@model _2_Laboras.Models.Treneris
+
+@{
+    ViewBag.Title = "Trenerio šalinimas";
+}
+
+<h2>Trenerio šalinimas</h2>
+
+ <h3>Ar tikrai norite pašalinti šį trenerį?</h3>
+ <div>
+     <h4>Treneris</h4>
+     <hr />
+     <dl class="dl-horizontal">
+         <dt>
+             @Html.DisplayNameFor(model => model.Vardas)
+         </dt>
+
+         <dd>
+             @Html.DisplayFor(model => model.Vardas)
+         </dd>
+
+         <dt>
+             @Html.DisplayNameFor(model => model.Pavarde)
+         </dt>
+
+         <dd>
+             @Html.DisplayFor(model => model.Pavarde)
+         </dd>
+
+         <dt>
+             @Html.DisplayNameFor(model => model.Tautybe)
+         </dt>
+
+         <dd>
+             @Html.DisplayFor(model => model.Tautybe)
+         </dd>
+
+     </dl>
+
+     @using (Html.BeginForm())
+     {
+         @Html.AntiForgeryToken()
+
+         <div class="form-actions no-color">
+             @if (ViewBag.klaida != null)
+             {
+                 <h5 style="color:red">@ViewBag.klaida</h5>
+             }
+             else
+             {
+                 <input type="submit" value="Šalinti" class="btn btn-danger" />
+             }
+
+             <div class="form-actions no-color">
+                 @Html.ActionLink("Atgal į sąrašą >>", "Index", "Treneris", new { @class = "btn btn-default" })
+             </div>
+       
+         </div>
+      }

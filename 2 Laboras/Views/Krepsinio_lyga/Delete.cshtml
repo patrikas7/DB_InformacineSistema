@@ -1,0 +1,94 @@
+﻿@model _2_Laboras.ViewModels.KrepsinioLygaEditViewModel
+
+@{
+    ViewBag.Title = "Krepšinio lygos šalinimas";
+}
+
+    <h2>Krepšinio lygos šalinimas</h2>
+
+<h3>Ar tikrai norite pašalinti šią krepšinio lygą?</h3>
+<div>
+    <h4>Krepšinio lyga</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LygosPavadinimas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LygosPavadinimas)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PrizinisFondas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PrizinisFondas)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KomanduSkaicius)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KomanduSkaicius)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TurnyroTrukme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TurnyroTrukme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Remejas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Remejas)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Formatas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Formatas)
+        </dd>
+
+    </dl>
+</div>
+<div>
+
+    <h4>Darbuotojai</h4>
+    <hr />
+    <table class="table table-striped">
+        <tr style="background-color:lightblue">
+            <th>
+                @Html.DisplayNameFor(model => model.PrezidentoKadencijos[0].vardas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrezidentoKadencijos[0].pavarde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrezidentoKadencijos[0].KadencijosPradzia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrezidentoKadencijos[0].KadencijosPabaiga)
+            </th>
+        </tr>
+
+        @for (int i = 0; i < Model.PrezidentoKadencijos.Count; i++)
+        {
+        <tr>
+            <td>@Model.PrezidentoKadencijos[i].vardas</td>
+            <td>@Model.PrezidentoKadencijos[i].pavarde</td>
+            <td>@Model.PrezidentoKadencijos[i].KadencijosPabaiga</td>
+            <td>@Model.PrezidentoKadencijos[i].KadencijosPabaiga</td>
+        </tr>
+        }
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <h2>@ViewBag.klaida</h2>
+            <input type="submit" value="Šalinti" class="btn btn-danger" />
+            @Html.ActionLink("Atgal į sąrašą", "Index", "Krepsinio_lyga", new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

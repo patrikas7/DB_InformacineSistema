@@ -1,0 +1,64 @@
+﻿@model _2_Laboras.ViewModels.ArenaEditViewModel
+
+@{
+    ViewBag.Title = "Arenos šalinimas";
+}
+
+<h2>Arenos šalinimas</h2>
+
+<h3>Ar tikrai norite pašalinti šią areną?</h3>
+<div>
+    <h4>Arena</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pavadinimas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pavadinimas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Talpa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Talpa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Miestas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miestas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pastatymo_metai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pastatymo_metai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresas)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Šalinti" class="btn btn-danger" /> 
+            @Html.ActionLink("Atgal į sąrašą >>", "Index", "Arena", new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

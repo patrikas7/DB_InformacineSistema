@@ -1,0 +1,60 @@
+﻿@model IEnumerable<_2_Laboras.ViewModels.ArenaViewModel>
+
+@{
+    ViewBag.Title = "Arenos";
+}
+
+<h2>Arenos</h2>
+
+<p>
+    @Html.ActionLink("Nauja arena", "Create", "Arena", new { @class="btn btn-success"})
+</p>
+<table class="table table-striped datatable">
+    <thead>
+        <tr style="background-color: lightblue; ">
+            <th>
+                @Html.DisplayNameFor(model => model.Pavadinimas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Talpa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Miestas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pastatymo_metai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresas)
+            </th>
+            <th style="width: 18%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pavadinimas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Talpa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Miestas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pastatymo_metai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresas)
+                </td>
+                <td>
+                    @Html.ActionLink("Redaguoti", "Edit", new { id = item.id }, new { @class= "btn btn-primary action" }) 
+                    @Html.ActionLink("Šalinti", "Delete", new { id = item.id }, new { @class= "btn btn-danger action" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

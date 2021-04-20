@@ -1,0 +1,70 @@
+﻿@model IEnumerable<_2_Laboras.Models.Krepsinio_komanda>
+
+@{
+    ViewBag.Title = "Krepšinio komandos";
+}
+
+<h2>Krepšinio komandos</h2>
+
+<p>
+    @Html.ActionLink("Nauja komanda", "Create", "Krepsinio_komanda", new { @class="btn btn-success"})
+</p>
+<table class="table">
+    <thead>
+        <tr style="background-color: lightblue; ">
+            <th>
+                @Html.DisplayNameFor(model => model.Pavadinimas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Miestas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Treneris)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Biudzetas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Arena)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lygu_licenzija)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Laimejimai)
+            </th>
+            <th style="width: 18%"></th>
+        </tr>
+    </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pavadinimas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Miestas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Treneris)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Biudzetas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Arena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lygu_licenzija)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Laimejimai)
+                </td>
+                <td>
+                    @Html.ActionLink("Redaguoti", "Edit", new { id = item.id }, new { @class = "btn btn-primary action" })
+                    @Html.ActionLink("Šalinti", "Delete", new { id = item.id }, new { @class = "btn btn-danger action" })
+                </td>
+            </tr>
+        }
+
+</table>
